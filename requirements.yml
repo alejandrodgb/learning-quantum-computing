@@ -1,0 +1,46 @@
+# Conda environment for the quantum computing learning project.
+# Create with:   conda env create -f requirements.yml
+# Update with:   conda env update -f requirements.yml --prune
+# Activate with: conda activate quantum-learning
+#
+# NOTE: filename is requirements.yml as requested. Conda only auto-discovers
+# "environment.yml", so the -f flag is required here.
+#
+# Version floors below were confirmed as real releases in early 2026. They are
+# NOT guaranteed to be the latest as of your install date. If you hit Qiskit API
+# breakage, it is most likely a major-version jump (e.g. qiskit 2.x) — pin
+# tighter in that case.
+
+name: quantum
+
+channels:
+  - conda-forge
+
+dependencies:
+  # --- Core scientific stack (conda-forge has reliable Apple Silicon builds) ---
+  - python=3.12          # 3.12/3.13 are safe; qiskit-aer also ships 3.14 wheels
+  - numpy                # Project 0: hand-rolled state-vector simulator
+  - scipy                # classical optimizers + covariance (Projects 4 & 5)
+  - matplotlib           # plots, Bloch sphere, amplitude charts
+  - pandas               # portfolio data wrangling (Project 5)
+  - jupyterlab           # notebooks are the daily driver
+  - pip
+
+  # --- Qiskit ecosystem (installed via pip; PyPI has the canonical ARM64 wheels) ---
+  - pip:
+      # Phases 1-3: circuits, gates, simulation
+      - qiskit>=1.3              # core SDK (standalone package since 1.0)
+      - qiskit-aer>=0.17         # high-performance simulator; macOS ARM64 wheels
+      - qiskit-algorithms>=0.3   # now its own package (was qiskit.algorithms)
+      - pylatexenc>=2.10         # required to render circuit diagrams in matplotlib
+
+      # Phase 4: VQE / quantum chemistry
+      - qiskit-nature>=0.7
+      - pyscf                    # classical chemistry driver used by qiskit-nature
+                                 # If pip install fails on Apple Silicon, move
+                                 # pyscf up into the conda 'dependencies:' block
+                                 # (conda-forge build is usually more robust).
+
+      # Phase 5: QAOA optimization / portfolio capstone
+      - qiskit-optimization>=0.6
+      - qiskit-finance>=0.4      # portfolio data structures + sample problems

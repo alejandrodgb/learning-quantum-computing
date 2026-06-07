@@ -1,0 +1,62 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+.env                      # also catches secrets-in-dotenv; see note below
+.python-version
+
+# --- Conda ---
+# Ignore any in-repo conda env dir if you create one with --prefix ./envs
+/envs/
+.conda/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# --- Testing / coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# --- Qiskit / quantum-specific ---
+# Qiskit Runtime / IBM Quantum credentials live in ~/.qiskit by default (outside
+# the repo), but if you ever copy an account config or token into the project,
+# keep it out of git:
+.qiskit/
+qiskit_account.json
+*.token
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+
+# --- Outputs you may not want to commit (uncomment if they get large) ---
+# *.png
+# *.gif
+# results/
+# data/raw/
+
+# NOTE: do NOT add CLAUDE.md or your "ways of working" config here — those are
+# usually meant to be committed. This file only ignores secrets, caches, and
+# environment artifacts.
